@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>comments</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/mustache.js"></script>
+    
+
+    
+    
+      
+    
+
+    <style>
+        body{
+            background: #e9e9e9;
+
+        }
+        header{
+            background: url(imgs/banner.png);
+            height: 100%;
+            width: 100%;
+        }
+        
+      #headerr{
+        color: #4800ff;
+      }
+    </style>
+</head>
+<header class="header">
+    <div>
+        <H1 id="headerr" class="nav justify-content-center ">Forum JRMB</H1>
+    </div>
+
+    <nav class="navbar ">
+        <div class="container-fluid navbar justify-content-end">
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class=" btn-co" type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
+
+    <div>
+        <ul class="nav justify-content-end" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="users-tab" data-toggle="tab" href="index.html" role="tab" aria-controls="users" aria-selected="true">users</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#" role="tab" aria-controls="profile" aria-selected="false">Acerca de...</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="users" role="tabpanel" aria-labelledby="home-tab">...</div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+          </div>
+</header>
+<body>
+    <article  class="container">
+    <section id="container" class="justify-content-center" ></section>
+    </article>
+
+    <script id="template" type="x-tmpl-mustache">
+        {{#.}}
+        
+        <div class="card" style="width:80rem;">
+        <div class="card-body">
+            <img style="width:70px"  src="imgs/idd.png" alt="" class="card-img-top">
+            <h6>{{name}}</h6>
+            <h6 class="card-text text-info bg-dark p-1"></h6>
+            
+        </div>
+        
+        <div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item  bg-light p-4">{{email}}</li>
+            <li class="list-group-item">{{body}}</li>
+        </ul>
+    </div>
+        <div class="card-body">
+            <a href="/index.html" class="card-link" target="">back to users</a>
+        </div>
+    </div>
+        {{/.}}
+
+        
+        
+    </script>
+
+
+    
+    <script>
+      async function GetData(){
+          const getparamurl = new URLSearchParams(window.location.search);
+          const getID = getparamurl.get("comments");
+          const base='https://jsonplaceholder.typicode.com';
+
+          let url= base+ '/comments?' + 'postId='+getID;
+          let response=await fetch(url);
+          let json =await response.json();
+
+
+          
+          console.log(json);
+          let container = document.getElementById('container');
+          let template = document.getElementById('template').innerHTML;
+          let html = Mustache.render(template,json);
+
+          container.innerHTML = html;
+          };
+          GetData(); 
+      
+  </script>
+    
+    <footer>
+        
+      <section class="mb-4 bg-dark p-1">
+        
+      </section>
+      <section class="">
+    
+        
+    
+        <p>
+            Practical exam where the student describes the technologies, good practices and standards of web development II
+          <strong>Jose Roberto Melendez Burgos</strong>.
+        </p>
+    
+        <hr class="mt-5">
+    
+        <p> <strong>4-B BIS ISW </strong> </p>
+    
+        <a class="btn btn-primary me-2" href="#" target="_blank" role="button">Download MDB UI KIT<i class="fas fa-download ms-2"></i></a>
+        <a class="btn btn-danger me-2" target="_blank" href="#">Learn more</a>
+        <a class="btn btn-success me-2" target="_blank" href="#" role="button">Tutorials</a>
+        <a class="btn btn-dark me-2" target="_blank" href="#" role="button">GitHub<i class="fab fa-github ms-2"></i></a>
+        <div>
+            <hr class="mb-4 bg-dark p-1 " >>
+        </div>
+      </section>
+        </footer>
+
+</body>
+</html>
